@@ -17,10 +17,10 @@
    npm run develop
    ```
 
-4. Navigate to the project directory:
+4. In different terminal navigate to the project directory:
 
    ```
-   cd ../frontend
+   cd frontend
    ```
 
 5. Install dependencies:
