@@ -14,27 +14,21 @@ const App = () => {
     reservationTime: '',
     numberOfGuests: 1,
   });
-  // Fetch all restaurants
   const fetchRestaurants = async () => {
     try {
       const response = await axios.get("http://localhost:1337/api/restaurants?populate=*");
       setRestaurants(response.data.data);
-      setFilteredRestaurants(response.data.data); // Start with all restaurants
+      setFilteredRestaurants(response.data.data); 
     } catch (error) {
       console.error("Error fetching restaurants:", error);
     }
   };
 
-  // Fetch details for a specific restaurant by ID
   const fetchRestaurantDetails = async (id) => {
     try {
       const response = await axios.get(`http://localhost:1337/api/restaurants/${id}?populate=reviews,media`);
       setSelectedRestaurant(response.data.data);
-
-      // Only reviews for the selected restaurant
       setReviews(response.data.data.attributes.reviews.data);
-
-      // Media for the selected restaurant
       setMedia(response.data.data.attributes.media.data);
     } catch (error) {
       console.error("Error fetching restaurant details:", error);
@@ -57,12 +51,10 @@ const App = () => {
       console.error('Error making reservation:', error);
     }
   };
-  // Search filter
   const handleSearch = (e) => {
     e.preventDefault();
     const searchTerm = e.target.search.value.toLowerCase();
 
-    // Filter restaurants based on name
     setFilteredRestaurants(
       restaurants.filter((restaurant) =>
         restaurant.attributes.Name.toLowerCase().includes(searchTerm)
@@ -172,28 +164,28 @@ const App = () => {
 
       {/* Media Gallery */}
       <h3>Media Gallery</h3>
-<div id="carouselExampleControls" className="carousel slide mb-5" data-bs-ride="carousel">
-  <div className="carousel-inner">
-    {['437387549_959784502819722_6522820373690717676_n_f34dabcb53.jpg', 'DSC_03605_kopia_0377218c58.jpg', 'download_b27289bc9d.jpg', 'restauracja_06354cf27a.jpg', 'Frame_50759_p_800_f48fd185dc.avif', 'b52c5f288f557ff68b40e2201143af9e_5ff6b85695.jpg'].map((image, index) => (
-      <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-        <img
-          src={`http://localhost:1337/uploads/${image}`}
-          alt={`Media ${index + 1}`}
-          className="d-block w-100"
-          style={{ height: '500px', objectFit: 'cover' }}
-        />
+      <div id="carouselExampleControls" className="carousel slide mb-5" data-bs-ride="carousel">
+        <div className="carousel-inner">
+          {['437387549_959784502819722_6522820373690717676_n_f34dabcb53.jpg', 'DSC_03605_kopia_0377218c58.jpg', 'download_b27289bc9d.jpg', 'restauracja_06354cf27a.jpg', 'Frame_50759_p_800_f48fd185dc.avif', 'b52c5f288f557ff68b40e2201143af9e_5ff6b85695.jpg'].map((image, index) => (
+            <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+              <img
+                src={`http://localhost:1337/uploads/${image}`}
+                alt={`Media ${index + 1}`}
+                className="d-block w-100"
+                style={{ height: '500px', objectFit: 'cover' }}
+              />
+            </div>
+          ))}
+        </div>
+        <button className="carousel-control-prev" type="button" href="#carouselExampleControls" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" href="#carouselExampleControls" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
       </div>
-    ))}
-  </div>
-  <button className="carousel-control-prev" type="button" href="#carouselExampleControls" data-bs-slide="prev">
-    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Previous</span>
-  </button>
-  <button className="carousel-control-next" type="button" href="#carouselExampleControls" data-bs-slide="next">
-    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Next</span>
-  </button>
-</div>
 
     </div>
   );
