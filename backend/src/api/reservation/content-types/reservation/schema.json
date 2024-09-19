@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "Reservation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "reservationTime": {
+      "type": "datetime",
+      "unique": true,
+      "required": true
+    },
+    "numberOfGuests": {
+      "type": "integer",
+      "default": 2,
+      "required": true
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "reservation"
+    }
+  }
+}
